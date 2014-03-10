@@ -1,4 +1,7 @@
 # Copyright (c) 2014 Chip Marshall <chip@2bithacker.net>
+# Modified from irssi-prowl - https://github.com/henrikbrixandersen/irssi-prowl
+# 
+# Copyright (c) 2012 Henrik Brix Andersen <henrik@brixandersen.dk>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -21,8 +24,6 @@
 # LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
-#
-# Based on irssi-prowl by Henrik Brix Andersen <henrik@brixandersen.dk>
 
 use strict;
 use warnings;
