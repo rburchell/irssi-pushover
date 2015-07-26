@@ -74,7 +74,7 @@ Irssi::command_set_options('pushover', '-url @priority');
 Irssi::theme_register([
     'pushover_event_cmd',     'Manual Message',
     # $0 = channel, $1 = nick
-    'pushover_event_msgs',    'Private Message from $1',
+    'pushover_event_msgs',    'Private Message', # from $1 is too long according to SIZE_TITLE in Pushover.pm
     'pushover_event_hilight', 'Hilighted in $0 by $1',
     # $0 = irc/ircs, $1 = server address, $2 = chatnet, $3 = server port, $4 = channel/nick
     'pushover_url_msgs',      '$0://$1:$3/',
