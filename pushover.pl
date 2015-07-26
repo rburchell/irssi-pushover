@@ -31,7 +31,8 @@ use warnings;
 use List::Util qw/min max/;
 
 use Irssi;
-use WebService::Pushover;
+require LWP::UserAgent;
+use HTTP::Request::Common qw(POST);
 
 our $VERSION = '1.0';
 our %IRSSI = (
@@ -41,11 +42,11 @@ our %IRSSI = (
     description => 'Send Pushover notifications from Irssi',
     license     => 'BSD',
     url         => 'https://github.com/2bithacker/irssi-pushover',
-    modules     => 'List::Util WebService::Pushover',
+    modules     => 'List::Util LWP::UserAgent HTTP::Request::Common',
     commands    => 'pushover',
     );
 
-my $pushover = WebService::Pushover->new();
+my $ua = LWP::UserAgent->new;
 my %config = ( apikey => '', userkey => '');
 
 # Settings
@@ -247,6 +248,14 @@ sub _pushover {
     $options{user} = $config{userkey};
     $options{token} = $config{apikey};
 
-    $pushover->message(%options);
+    #$pushover->message(%options);
+    my $req = POST('https://api.pushover.net/1/messages.json', [ %options ] );
+    my $response = $ua->request($req);
+    if (!$response->is_success) {
+        Irssi::print('Pushover request NOT OK ' . $response->status_line, MSGLEVEL_CLIENTCRAP);
+        Irssi::print($response->decoded_content, MSGLEVEL_CLIENTCRAP);
+        my $debuginfo = join(', ', map { "$_ => '$options{$_}'" } sort keys %options);
+        Irssi::print("Data was: $debuginfo", MSGLEVEL_CLIENTCRAP);
+    }
 }
 
